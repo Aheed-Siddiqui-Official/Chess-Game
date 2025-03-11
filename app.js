@@ -1,3 +1,5 @@
+                    //VARIABLE DECLARATION
+
 const gameBoard = document.querySelector("#gameboard");
 const playerDisplay = document.querySelector("#player");
 const infoDisplay = document.querySelector("info-display");
@@ -13,6 +15,9 @@ const startPieces = [
     pawn, pawn, pawn, pawn, pawn, pawn, pawn, pawn,
     rook, knight, bishop, queen, king, bishop, knight, rook
 ]
+
+
+                    //CREATE GAME BOARD FUNCTIONALITY
 
 function createBoard(){
     startPieces.forEach((startPiece, i) =>{
@@ -45,9 +50,35 @@ function createBoard(){
 createBoard();
 
 
+                    //DRAG FUNCTIONALITY
+
+const allSquares = document.querySelectorAll("#gameboard .square");
+
+allSquares.forEach(square => {
+    square.addEventListener("dragstart", dragStart);
+    square.addEventListener("dragover", dragOver);
+    square.addEventListener("drop", dragDrop);
+})
+
+let startPositionId;
+let draggedElement;
+
+function dragStart (e) {
+    startPositionId = e.target.parentNode.getAttribute('square-id');
+    draggedElement = e.target;
+}
+
+function dragOver(e) {
+    e.preventDefault();
+}
+
+function dragDrop(e) {
+    e.stopPropagation();
+    console.log(e.target);
+    const taken = e.target.classList.contains('piece');
 
 
-
-
-
-
+    // e.target.parentNode.append(draggedElement);
+    // e.target.remove();
+    // e.target.append(draggedElement);
+}
