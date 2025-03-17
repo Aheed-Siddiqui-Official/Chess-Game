@@ -2,8 +2,11 @@
 
 const gameBoard = document.querySelector("#gameboard");
 const playerDisplay = document.querySelector("#player");
-const infoDisplay = document.querySelector("info-display");
+const infoDisplay = document.querySelector("#info-display");
 const width = 8;
+let playerGo = "black";
+playerDisplay.textContent = "black";
+
 
 const startPieces = [
     rook, knight, bishop, queen, king, bishop, knight, rook,
@@ -52,7 +55,7 @@ createBoard();
 
                     //DRAG FUNCTIONALITY
 
-const allSquares = document.querySelectorAll("#gameboard .square");
+const allSquares = document.querySelectorAll(".square");
 
 allSquares.forEach(square => {
     square.addEventListener("dragstart", dragStart);
@@ -74,11 +77,79 @@ function dragOver(e) {
 
 function dragDrop(e) {
     e.stopPropagation();
-    console.log(e.target);
+    const correctGo = draggedElement.firstChild.classList.contains(playerGo);
     const taken = e.target.classList.contains('piece');
+    const valid = checkIfValid(e.target);
+    const opponentGo = playerGo === "white" ? "black" : "white";
+    const takenByOpponent = e.target.firstChild?.classList.contains(opponentGo);
 
+    if(correctGo) {
 
-    // e.target.parentNode.append(draggedElement);
-    // e.target.remove();
-    // e.target.append(draggedElement);
+                    // must check this first
+
+        if (takenByOpponent && valid) {
+            e.target.parentNode.append(draggedElement);
+            e.target.remove();    
+            changePLayer();
+            return;    
+        }
+
+                    // then check this
+
+        if(taken && !takenByOpponent) {
+            infoDisplay.textContent = "you cannot go here!";
+            setTimeout(() => infoDisplay.textContent = "", 2000);
+            return;
+        }
+
+        if(valid) {
+            e.target.append(draggedElement);
+            changePLayer();
+            return;
+        }
+    }
+}
+
+function checkIfValid(target) {
+    const targetId = Number(target.getAttribute("square-id")) || Number(target.parentNode.getAttribute("square-id"));
+    const startId = Number(startPositionId);
+    const piece = draggedElement.id;
+    console.log(targetId);
+    console.log(startId);
+    console.log(piece);
+    
+    switch(piece) {
+        case 'pawn' : 
+            const starterRow = [8, 9, 10, 11, 12, 13, 15];
+            if(
+                starterRow.includes(startId) && startId + width * 2 === targetId
+                || startId + width === targetId
+            ) {
+                return true;
+            }
+    }
+}
+
+function changePLayer(){
+    if(playerGo === "black") {
+        reverseIds();
+        playerGo = "white";
+        playerDisplay.textContent = "white";
+    } else {
+        revertIds();
+        playerGo = "black";
+        playerDisplay.textContent = "black";
+    }
+}
+
+function reverseIds(){
+    const allSquares = document.querySelectorAll(".square");
+    allSquares.forEach((square, i) => 
+        square.setAttribute('square-id', (width * width - 1) - i));
+}
+
+function revertIds() {
+    const allSquares = document.querySelectorAll(".square");
+    allSquares.forEach((square, i) => 
+        square.setAttribute('square-id', i));
 }
