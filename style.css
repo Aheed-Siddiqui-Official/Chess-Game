@@ -3,30 +3,49 @@ body{
     padding: 0;
     box-sizing: border-box;
     font-family: sans-serif;
-    background-color: #212121;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    margin-top: 9rem;
 }
 
 #gameboard{
-    width: 320px;
-    height: 320px;
+    width: 560px;
+    height: 560px;
     display: flex;
     flex-wrap: wrap;
 }
 
-p{
+#turn{
     color: white;
+    font-family: 'Times New Roman', Times, serif;
+    font-size: 25px;
+    background-color: black;
+    padding: 8px;
+    border-radius: 8px;
+    font-weight: 500;
+}
+
+#info-display{
+    color: black;
+    font-family: 'Times New Roman', Times, serif;
+    font-size: 25px;
+    background-color: white;
+    border-radius: 8px;
+    font-weight: 800;
 }
 
 .square{
-    height: 40px;
-    width: 40px;
+    height: 70px;
+    width: 70px;
     position: relative;
 }
 
 .square svg{
-    height: 30px;
-    width: 30px;
-    margin: 5px;
+    height: 45px;
+    width: 45px;
+    margin: 13px;
     position: relative;
     z-index: -9;
 }
@@ -57,4 +76,46 @@ path{
     fill: rgb(255, 255, 255);
 }
 
+
+
+@media (max-width:560px) {
+    #gameboard{
+        width: 320px;
+        height: 320px;
+        display: flex;
+        flex-wrap: wrap;
+    }
+
+    .square{
+        height: 40px;
+        width: 40px;
+        position: relative;
+    }
+    
+    .square svg{
+        height: 30px;
+        width: 30px;
+        margin: 5px;
+        position: relative;
+        z-index: -9;
+    }
+
+    #turn{
+        color: white;
+        font-family: 'Times New Roman', Times, serif;
+        font-size: 15px;
+        background-color: black;
+        padding: 5px;
+        border-radius: 5px;
+        font-weight: 300;
+    }
+    
+    #info-display{
+        color: black;
+        font-family: 'Times New Roman', Times, serif;
+        font-size: 15px;
+        background-color: white;
+        font-weight: 800;
+    }
+}
 
