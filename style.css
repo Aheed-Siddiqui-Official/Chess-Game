@@ -31,8 +31,6 @@ body{
     color: black;
     font-family: 'Times New Roman', Times, serif;
     font-size: 25px;
-    background-color: white;
-    border-radius: 8px;
     font-weight: 800;
 }
 
@@ -77,6 +75,7 @@ path{
 }
 
 
+                    /* RESPONSIVENESS */
 
 @media (max-width:560px) {
     #gameboard{
@@ -114,8 +113,7 @@ path{
         color: black;
         font-family: 'Times New Roman', Times, serif;
         font-size: 15px;
-        background-color: white;
-        font-weight: 800;
+        font-weight: 500;
     }
 }
 
